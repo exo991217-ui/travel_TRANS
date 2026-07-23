@@ -1,4 +1,4 @@
-const CACHE_NAME = 'routeflow-shell-v3';
+const CACHE_NAME = 'routeflow-shell-v4';
 const APP_SHELL = [
   './',
   './favicon_1784795136387.svg',
