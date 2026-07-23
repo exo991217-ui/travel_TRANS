@@ -1920,7 +1920,8 @@ function renderBudget() {
 // Share
 // ═══════════════════════════════════════════════
 function openShareModal() {
-  const url = window.location.href.split('?')[0];
+  const base = window.location.href.split('?')[0];
+  const url = activeTrip ? base + '?trip=' + activeTrip.id : base;
   document.getElementById('share-url-box').textContent = url;
   document.getElementById('share-copy-ok').style.display = 'none';
   openModal('modal-share');
@@ -1937,6 +1938,23 @@ function copyShareUrl() {
     });
   }
 }
+function _copyToClipboard(text, onSuccess) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(onSuccess).catch(() => _fallbackCopy(text, onSuccess));
+  } else {
+    _fallbackCopy(text, onSuccess);
+  }
+}
+function _fallbackCopy(text, onSuccess) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); onSuccess(); } catch(e) { alert('복사가 안 됐어요. 직접 선택해서 복사해주세요.'); }
+  document.body.removeChild(ta);
+}
 function copyTripText() {
   const t = activeTrip;
   if (!t) return;
@@ -1951,7 +1969,7 @@ function copyTripText() {
     });
     lines.push('');
   });
-  navigator.clipboard.writeText(lines.join('\n')).then(() => alert('텍스트가 복사됐어요!'));
+  _copyToClipboard(lines.join('\n'), () => alert('텍스트가 복사됐어요!'));
 }
 
 // ═══════════════════════════════════════════════
@@ -2292,6 +2310,12 @@ async function main() {
       trips = await dbGetAll();
     }
 
+    // 공유 링크로 들어온 경우 (?trip=아이디) 해당 여행 자동 오픈
+    const tripIdParam = new URLSearchParams(window.location.search).get('trip');
+    if (tripIdParam) {
+      const found = trips.find(t => t.id === tripIdParam);
+      if (found) { openTrip(found); return; }
+    }
     renderHome();
     renderHeader();
   });
