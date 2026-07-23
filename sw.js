@@ -1,10 +1,9 @@
-const CACHE_NAME = 'routeflow-shell-v2';
+const CACHE_NAME = 'routeflow-shell-v3';
 const APP_SHELL = [
   './',
-  './index.html',
-  './favicon.svg',
-  './robots.txt',
-  './manifest.webmanifest',
+  './favicon_1784795136387.svg',
+  './robots_1784795136388.txt',
+  './manifest_1784795136388.webmanifest',
 ];
 
 self.addEventListener('install', event => {
@@ -27,6 +26,20 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+  // Always prefer the latest HTML so a previously opened window cannot
+  // resurrect the old visual shell. Other assets remain cache-first offline.
+  if (event.request.mode === 'navigate' || event.request.url.endsWith('.html')) {
+    event.respondWith(
+      fetch(event.request, { cache: 'no-store' })
+        .then(response => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+          return response;
+        })
+        .catch(() => caches.match(event.request).then(cached => cached || caches.match('./'))),
+    );
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
       if (event.request.url.startsWith(self.location.origin)) {
@@ -34,6 +47,6 @@ self.addEventListener('fetch', event => {
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
       }
       return response;
-    }).catch(() => caches.match('./index.html'))),
+    }).catch(() => caches.match('./'))),
   );
 });
