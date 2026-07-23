@@ -6,8 +6,10 @@
   <title>RouteFlow</title>
   <meta name="description" content="여행 일정을 보기 편하게 정리하는 RouteFlow" />
   <meta name="theme-color" content="#8B5CF6" />
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-  <link rel="manifest" href="./manifest.webmanifest" />
+  <!-- Keep the uploaded asset names explicit so the browser does not fall back
+       to a previously cached shell when this file is opened directly. -->
+  <link rel="icon" type="image/svg+xml" href="./favicon_1784795136387.svg" />
+  <link rel="manifest" href="./manifest_1784795136388.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -209,7 +211,7 @@
     .route-day-tab:hover { color: var(--text); background: var(--surface2); }
 
     /* 2-col layout */
-    .route-2col { display: grid; grid-template-columns: 420px 1fr; gap: 24px; align-items: start; }
+    .route-2col { display: grid; grid-template-columns: 480px 1fr; gap: 28px; align-items: start; }
     .route-left { position: sticky; top: 80px; }
     .route-right {}
 
@@ -233,7 +235,7 @@
     .route-flow { display: flex; flex-direction: column; }
     .route-flow-item {
       display: flex; align-items: flex-start; gap: 10px;
-      padding: 12px 14px; border-bottom: 1px solid var(--border);
+      padding: 18px 18px; border-bottom: 1px solid var(--border);
       cursor: pointer; transition: background .15s;
     }
     .route-flow-item:last-child { border-bottom: none; }
@@ -249,10 +251,10 @@
       display: flex; align-items: center; justify-content: center;
       margin-top: 2px;
     }
-    .route-flow-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
-    .route-flow-row  { display: flex; align-items: center; gap: 0; }
-    .route-flow-sub  { display: flex; align-items: center; gap: 6px; padding-left: 2px; flex-wrap: wrap; }
-    .route-flow-memo { font-size: 11px; color: var(--text-subtle); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
+    .route-flow-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 11px; }
+    .route-flow-row  { display: flex; align-items: center; gap: 0; min-width: 0; }
+    .route-flow-sub  { display: flex; align-items: center; gap: 9px; padding-left: 2px; flex-wrap: wrap; min-height: 20px; }
+    .route-flow-memo { font-size: 12px; color: var(--text-subtle); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 270px; }
 
     /* Place name boxes */
     .route-flow-from, .route-flow-to {
@@ -260,11 +262,11 @@
       border-radius: 8px; padding: 4px 8px;
       font-size: 11px; font-weight: 700; color: var(--text);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      max-width: 110px; flex-shrink: 0;
+      max-width: 132px; flex-shrink: 0;
     }
     /* Connecting dashes */
     .route-flow-dash {
-      flex: 1; height: 1.5px; background: var(--border-strong); min-width: 5px;
+      flex: 1; height: 0; border-top: 2px dotted var(--border-strong); min-width: 12px; margin: 0 8px;
     }
     /* Transport badge (oval) */
     .route-flow-badge {
@@ -281,7 +283,7 @@
     .route-flow-badge.trans-지하철 { background: #EDE9FE; color: #5B21B6; border-color: #C4B5FD; }
     .route-flow-badge.trans-비행기 { background: #ECFEFF; color: #155E75; border-color: #67E8F9; }
     .route-flow-badge.trans-기타  { background: var(--surface2); color: var(--text-muted); border-color: var(--border); }
-    .route-flow-link-icon { font-size: 11px; color: var(--primary); text-decoration: none; padding: 2px 5px; border-radius: 6px; transition: background .15s; flex-shrink: 0; margin-left: 4px; }
+    .route-flow-link-icon { font-size: 12px; color: var(--primary); text-decoration: underline; padding: 2px 5px; border-radius: 6px; transition: background .15s; flex-shrink: 0; margin-left: 4px; font-weight: 800; }
     .route-flow-link-icon:hover { background: var(--primary-soft); }
 
     /* Theme picker */
@@ -295,10 +297,10 @@
     .theme-swatch.active { border-color: var(--text); transform: scale(1.2); box-shadow: 0 0 0 2px var(--surface); }
 
     /* Route cards (detail panel) */
-    .route-cards { display: flex; flex-direction: column; gap: 10px; }
+    .route-cards { display: flex; flex-direction: column; gap: 16px; }
     .route-card {
       background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px;
-      padding: 16px 18px; cursor: pointer;
+      padding: 19px 20px; cursor: pointer;
       box-shadow: 0 2px 10px rgba(139,92,246,.06);
       transition: border-color .15s, box-shadow .15s, transform .15s;
       position: relative; overflow: hidden;
@@ -544,7 +546,7 @@
     </div>
     <div class="modal-body">
       <p class="paste-hint">ChatGPT에서 생성한 여행 요약 텍스트를 아래에 붙여넣고 <strong>분석하기</strong>를 눌러주세요.</p>
-      <textarea class="paste-area" id="paste-input" placeholder="✈️ 여행 요약&#10;&#10;📅 2026-12-31 ~ 2027-01-03&#10;📍 일본&#10;👥 가족&#10;💰 총 경비: 296,810원&#10;&#10;📋 여행 일정&#10;&#10;[2026-12-31]&#10;13:30 | 신치토세 공항 | 일본 도착 | 이동 | 버스&#10;..."></textarea>
+      <textarea class="paste-area" id="paste-input" placeholder="✈️ 여행 요약&#10;&#10;📅 26/12/31 ~ 27/01/03&#10;📍 일본&#10;👥 가족&#10;💰 총 경비: 296,810원&#10;&#10;📋 여행 일정&#10;&#10;[26/12/31]&#10;13:30 | 신치토세 공항 | 일본 도착 | 이동 | 버스&#10;..."></textarea>
       <div style="display:flex;justify-content:flex-end;margin-top:10px;">
         <button class="btn btn-primary" onclick="parseAndPreview()">분석하기</button>
       </div>
@@ -850,14 +852,24 @@ let _editingRouteId = null;
 // ═══════════════════════════════════════════════
 // 날짜 문자열 정규화: yy/mm/dd, yy-mm-dd, yyyy/mm/dd → yyyy-mm-dd
 function normDateStr(s) {
-  s = s.trim();
-  // yy/mm/dd 또는 yy-mm-dd (2자리 연도)
-  const m2 = s.match(/^(\d{2})[\/\-\.](\d{2})[\/\-\.](\d{2})$/);
-  if (m2) return `20${m2[1]}-${m2[2]}-${m2[3]}`;
-  // yyyy/mm/dd (슬래시 4자리)
-  const m4s = s.match(/^(\d{4})[\/\.](\d{2})[\/\.](\d{2})$/);
-  if (m4s) return `${m4s[1]}-${m4s[2]}-${m4s[3]}`;
-  return s; // 이미 yyyy-mm-dd 형식
+  s = String(s || '').trim();
+  const iso = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (iso) return `${iso[1]}-${iso[2].padStart(2, '0')}-${iso[3].padStart(2, '0')}`;
+  // yy/mm/dd 또는 yy-mm-dd (2자리 연도): 26 → 2026
+  const m2 = s.match(/^(\d{2})[\/\-\.](\d{1,2})[\/\-\.](\d{1,2})$/);
+  if (m2) return `20${m2[1]}-${m2[2].padStart(2, '0')}-${m2[3].padStart(2, '0')}`;
+  // yyyy/mm/dd 또는 yyyy.mm.dd
+  const m4s = s.match(/^(\d{4})[\/\.](\d{1,2})[\/\.](\d{1,2})$/);
+  if (m4s) return `${m4s[1]}-${m4s[2].padStart(2, '0')}-${m4s[3].padStart(2, '0')}`;
+  return s;
+}
+
+function parseDateRangeLine(line) {
+  const datePattern = '(\\d{2,4}[\\/\\-.]\\d{1,2}[\\/\\-.]\\d{1,2})';
+  const match = String(line || '').match(
+    new RegExp(`${datePattern}\\s*(?:~|～|–|—|-)\\s*${datePattern}`),
+  );
+  return match ? { start: normDateStr(match[1]), end: normDateStr(match[2]) } : null;
 }
 
 function parseTravel(text) {
@@ -876,8 +888,8 @@ function parseTravel(text) {
     if (/📋/.test(line) && /일정/.test(line)) { mode = 'schedule'; continue; }
     if (/💸/.test(line) && /지출/.test(line)) { mode = 'expense'; continue; }
 
-    const dateM = line.match(/📅\s*(\d{4}-\d{2}-\d{2})\s*[~–-]\s*(\d{4}-\d{2}-\d{2})/);
-    if (dateM) trip.dateRange = { start: dateM[1], end: dateM[2] };
+    const dateRange = parseDateRangeLine(line);
+    if (dateRange) trip.dateRange = dateRange;
     const cntryM = line.match(/📍\s*(.+)/);
     if (cntryM) trip.country = cntryM[1].trim();
     const compM  = line.match(/👥\s*(.+)/);
@@ -886,8 +898,11 @@ function parseTravel(text) {
     if (expM)   trip.totalExpense = parseInt(expM[1].replace(/,/g,''));
 
     if (mode === 'schedule') {
-      const dhM = line.match(/^\[(\d{4}-\d{2}-\d{2})\]$/);
-      if (dhM) { curDate = dhM[1]; continue; }
+      const dhM = line.match(/^\[([^\]]+)\]$/);
+      if (dhM && /^\d{2,4}[\/\-.]\d{1,2}[\/\-.]\d{1,2}$/.test(dhM[1])) {
+        curDate = normDateStr(dhM[1]);
+        continue;
+      }
       const parts = line.split('|').map(p => p.trim());
       if (parts.length >= 4 && /^\d{1,2}:\d{2}$/.test(parts[0])) {
         const mapsUrl = parts.find(part => /^https?:\/\/(?:www\.)?(?:google\.[^/]+\/maps|maps\.google\.)/i.test(part)) || null;
@@ -901,10 +916,10 @@ function parseTravel(text) {
     }
     if (mode === 'expense') {
       const parts = line.split('|').map(p => p.trim());
-      if (parts.length >= 4 && /^\d{4}-\d{2}-\d{2}$/.test(parts[0])) {
+      if (parts.length >= 4 && /^\d{2,4}[\/\-.]\d{1,2}[\/\-.]\d{1,2}$/.test(parts[0])) {
         const amtM = parts[3].match(/([\d,]+)\s*원/);
         if (amtM) trip.expenses.push({
-          id: 'e' + (eidx++), date: parts[0], category: parts[1] || '기타',
+          id: 'e' + (eidx++), date: normDateStr(parts[0]), category: parts[1] || '기타',
           title: parts[2] || '', amount: parseInt(amtM[1].replace(/,/g,'')),
         });
       }
@@ -1321,7 +1336,7 @@ function renderRoute() {
     const dur = r.durationMin ? fmtDuration(r.durationMin) : '미정';
     const tr = r.transport || '기타';
     const linkIcon = r.mapsUrl
-      ? `<a href="${escH(r.mapsUrl)}" target="_blank" rel="noopener" class="route-flow-link-icon" onclick="event.stopPropagation()" title="Google Maps 열기">🔗</a>`
+      ? `<a href="${escH(r.mapsUrl)}" target="_blank" rel="noopener" class="route-flow-link-icon" onclick="event.stopPropagation()" title="Google Maps 열기">지도 ↗</a>`
       : '';
     const memoEl = r.memo ? `<span class="route-flow-memo">${escH(r.memo)}</span>` : '';
     const subRow = (linkIcon || memoEl) ? `<div class="route-flow-sub">${linkIcon}${memoEl}</div>` : '';
@@ -1762,6 +1777,32 @@ function renderThemePicker() {
 // ═══════════════════════════════════════════════
 // Init
 // ═══════════════════════════════════════════════
+async function refreshServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  try {
+    const migrationKey = 'routeflow-sw-migrated-v3';
+    if (!localStorage.getItem(migrationKey)) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map(registration => registration.unregister()));
+      const cacheKeys = await caches.keys();
+      await Promise.all(
+        cacheKeys
+          .filter(key => key.startsWith('routeflow-shell-'))
+          .map(key => caches.delete(key)),
+      );
+      localStorage.setItem(migrationKey, '1');
+    }
+    // Use the versioned worker with cache updates disabled so the latest shell
+    // is not replaced by an older cached design.
+    await navigator.serviceWorker.register('./sw_1784795136388.js?rev=3', {
+      updateViaCache: 'none',
+    });
+  } catch (_) {
+    // Service workers are unavailable for some local file previews; the app
+    // remains fully usable without offline caching.
+  }
+}
+
 async function main() {
   await initDB();
   trips = await dbGetAll();
@@ -1769,9 +1810,7 @@ async function main() {
   renderHeader();
   renderThemePicker();
   applyTheme(localStorage.getItem('rf-theme') || 'purple');
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').catch(() => {});
-  }
+  await refreshServiceWorker();
 }
 main().catch(console.error);
 </script>
