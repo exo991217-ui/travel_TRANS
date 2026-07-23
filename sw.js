@@ -1,9 +1,9 @@
 const CACHE_NAME = 'routeflow-shell-v4';
 const APP_SHELL = [
   './',
-  './favicon_1784795136387.svg',
-  './robots_1784795136388.txt',
-  './manifest_1784795136388.webmanifest',
+  './favicon.svg',
+  './robots.txt',
+  './manifest.webmanifest',
 ];
 
 self.addEventListener('install', event => {
