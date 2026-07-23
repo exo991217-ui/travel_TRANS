@@ -570,10 +570,19 @@
 
     @media (max-width: 720px) {
       .header { box-shadow: 0 2px 10px rgba(34,16,64,.08); }
-      .header-inner { height: 52px; padding: 0 14px; }
-      .logo { font-size: 15px; gap: 7px; }
-      .logo-icon { width: 26px; height: 26px; border-radius: 7px; }
+      .header-inner { height: 52px; padding: 0 10px; }
+      .logo { font-size: 14px; gap: 6px; }
+      .logo-icon { width: 24px; height: 24px; border-radius: 6px; }
       .theme-picker-menu { right: -4px; }
+      /* 모바일 헤더: 이름 숨기기, 버튼 아이콘으로 축소 */
+      .header-username { display: none !important; }
+      .header-logout-btn { padding: 5px 9px !important; font-size: 11px !important; }
+      .header-import-text { display: none; }
+      .header-import-icon { display: inline !important; }
+      .header-import-btn { padding: 7px 12px !important; min-height: 32px !important; font-size: 18px !important; }
+      .header-login-text { display: none; }
+      .header-login-icon { display: inline !important; }
+      .header-right { gap: 5px; }
       .content-wrap { padding: 18px 14px 32px; }
       .home-title { font-size: 22px; }
       .home-sub { margin-bottom: 18px; }
@@ -1227,6 +1236,8 @@ function showPage(id) {
 function goHome() {
   activeTrip = null;
   currentTab = 'schedule';
+  // 공유 링크 파라미터(?trip=...) 제거 — 새로고침해도 메인으로 돌아오게
+  history.replaceState({}, '', window.location.pathname);
   showPage('page-home');
   renderHome();
   renderHeader();
@@ -1264,15 +1275,15 @@ function renderTab(tab) {
 function renderHeader() {
   const el = document.getElementById('header-right');
   const loginBtn = currentUser
-    ? `<div style="display:flex;align-items:center;gap:8px;">
-        <img src="${currentUser.photoURL || ''}" alt="" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid var(--primary-soft);" onerror="this.style.display='none'" />
-        <span style="font-size:12px;color:var(--text-muted);max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${currentUser.displayName || currentUser.email || ''}</span>
-        <button class="btn btn-secondary btn-sm" onclick="signOutUser()" title="로그아웃">로그아웃</button>
+    ? `<div style="display:flex;align-items:center;gap:6px;">
+        <img src="${currentUser.photoURL || ''}" alt="" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid var(--primary-soft);flex-shrink:0;" onerror="this.style.display='none'" />
+        <span class="header-username" style="font-size:12px;color:var(--text-muted);max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${currentUser.displayName || currentUser.email || ''}</span>
+        <button class="btn btn-secondary btn-sm header-logout-btn" onclick="signOutUser()" title="로그아웃">로그아웃</button>
       </div>`
-    : `<button class="btn btn-ghost btn-sm" onclick="googleSignIn()">🔑 Google로 로그인</button>`;
+    : `<button class="btn btn-ghost btn-sm" onclick="googleSignIn()"><span class="header-login-text">🔑 Google로 로그인</span><span class="header-login-icon" style="display:none;">🔑</span></button>`;
 
   if (!activeTrip) {
-    el.innerHTML = loginBtn + `<button class="btn btn-primary" onclick="openModal('modal-import')">✈️ 여행 가져오기</button>`;
+    el.innerHTML = loginBtn + `<button class="btn btn-primary header-import-btn" onclick="openModal('modal-import')"><span class="header-import-text">✈️ 여행 가져오기</span><span class="header-import-icon" style="display:none;">✈️</span></button>`;
   } else {
     el.innerHTML = loginBtn;
   }
